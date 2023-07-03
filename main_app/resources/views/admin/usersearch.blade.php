@@ -2,75 +2,70 @@
 
  @section('content')
      @include('layouts.alerts')
-     @if (count($lands) > 0)
+     @if (count($users) > 0)
          <section>
-             <h5 class="my-4 dark-grey-text font-weight-bold animated fadeIn">Manage Lands</h5>
 
-             <div class="card card-cascade narrower z-depth-1 ">
+             <div class="row mx-auto">
+                 <h5 class="mt-3 dark-grey-text font-weight-bold col-md-9 animated fadeIn">Users Search Results.</h5>
+
+             </div>
+
+
+             <div class="card card-cascade narrower z-depth-1">
                  <div
                      class="view view-cascade gradient-card-header blue-gradient narrower p-2 mx-4 my-3 d-flex justify-content-between align-items-center">
-                     <a href="" class="white-text mx-3">Choose a location to edit</a>
-                     <form class="form-inline" action="{{ route('landsearch') }}" method="GET">
-                         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search"
-                             aria-label="Search">
-                         <button class="btn btn-sm bg-primary" style="border: none;" type="submit"><span><i
-                                     class="fa fa-search"></i></span></button>
-                     </form>
-
+                     <a href="" class="white-text mx-3">Choose a user to edit</a>
                  </div>
 
 
-                 <div class="px-4 hoverable ">
+                 <div class="px-4 hoverable">
                      <div class="table-responsive ">
-                         <table class="table table-hover mb-0 animated fadeIn">
+                         <table class="table table-hover mb-1 animated fadeIn">
                              <thead>
                                  <tr>
-
-                                     <th class="th-lg"><strong>Land</strong></th>
-                                     <th class="th-lg"><strong>Region</strong>
+                                     <th class="th-lg"><strong>Username</strong>
+                                     <th class="th-lg"><strong>Email</strong>
+                                     <th class="th-lg"><strong>Role</strong>
+                                     <th class="th-lg"><strong>Plots reserved</strong>
+                                     <th class="th-lg"><strong>Plots bought</strong>
                                      </th>
-                                     <th class="th-lg"><strong>District</strong></th>
-                                     <th class="th-lg"><strong>Price per sqm</strong></th>
-                                     <th class="th-lg"><strong>Mradi</strong></th>
-                                     <th class="th-lg"><strong>Owner</strong></th>
                                  </tr>
                              </thead>
                              <tbody>
-                                 @foreach ($lands as $land)
+                                 @foreach ($users as $user)
+                                     @php
+                                         $reserved = \App\Models\Portion::where('user_id', $user->id)->count();
+                                         $bought = \App\Models\Portion::where('bought_by', $user->id)->count();
+                                     @endphp
                                      <tr>
-
-
-                                         <td>{{ $land->name }}</td>
-                                         <td>{{ $land->region }}</td>
-                                         <td>{{ $land->district }}</td>
-                                         <td>{{ $land->pricepersqm }}</td>
-                                         <td>{{ $land->district }}</td>
-                                         <td>{{ $land->phone }}</td>
+                                         <td>{{ $user->name }}</td>
+                                         <td>{{ $user->email }}</td>
+                                         <td>{{ $user->role }}</td>
+                                         <td>{{ $reserved }}</td>
+                                         <td>{{ $bought }}</td>
                                          <td>
 
-
-                                             <a href="/manage_lands/{{ $land->name }}"
-                                                 class="btn btn-sm btn-primary">edit</a>
-                                         </td>
-                                         <td> <a href="#deleteLandModal{{ $land->id }}" class="btn btn-sm btn-danger"
-                                                 data-toggle="modal">
+                                             <a href="/manage_users/{{ $user->id }}"
+                                                 class="btn btn-sm btn-primary mx-3">edit</a>
+                                             <a href="#deleteUserModal{{ $user->id }}"
+                                                 class="btn btn-sm btn-danger mx-3" data-toggle="modal">
                                                  DELETE
                                                  </i></a>
                                          </td>
-                                     </tr>
 
-                                     <div id="deleteLandModal{{ $land->id }}" class="modal fade">
+                                     </tr>
+                                     <div id="deleteUserModal{{ $user->id }}" class="modal fade">
                                          <div class="modal-dialog">
                                              <div class="modal-content">
 
                                                  <div class="modal-header">
                                                      <h4 class="card-title h4 mb-3"><strong><a href=""
-                                                                 class="grey-text">DELETE LAND</a></strong></h4>
+                                                                 class="grey-text">DELETE USER</a></strong></h4>
                                                      <button type="button" class="close" data-dismiss="modal"
                                                          aria-hidden="true">&times;</button>
                                                  </div>
                                                  <div class="modal-body">
-                                                     <p>Are you sure you want to delete this land?</p>
+                                                     <p>Are you sure you want to delete this user?</p>
                                                      <p class="text-warning"><small>This action cannot be undone.</small>
                                                      </p>
                                                  </div>
@@ -78,7 +73,7 @@
                                                      <input type="button" class="btn btn-sm btn-default"
                                                          data-dismiss="modal" value="Cancel">
                                                      {!! Form::open([
-                                                         'action' => ['App\Http\Controllers\Admin\LandsController@destroy', $land->id],
+                                                         'action' => ['App\Http\Controllers\Admin\UsersController@destroy', $user->id],
                                                          'method' => 'POST',
                                                      ]) !!}
                                                      {{ Form::hidden('_method', 'DELETE') }}
@@ -96,6 +91,7 @@
                              </tbody>
                          </table>
                      </div>
+
                  </div>
              </div>
          </section>
@@ -103,7 +99,7 @@
          <div class="dark-grey-text d-flex  align-items-center pt-3 pb-4 pl-4 ">
              <div class="mx-auto">
 
-                 <h4 class="m-4 ">No Lands</h4>
+                 <h4 class="m-4 ">No Users</h4>
 
              </div>
          </div>

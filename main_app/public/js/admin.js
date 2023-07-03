@@ -100,8 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         portionPrice.innerHTML = `<strong>Price: </strong> not set`;
                     }
 
-                    if (data.owner != null) {
-                        portionOwner.innerHTML = `<strong>Resved by: </strong> ${data.user_id}`;
+                    if (data.bought_by != null) {
+                        portionOwner.innerHTML = `<strong>Resved by: </strong> ${data.bought_by}`;
                     } else {
                         portionOwner.innerHTML = `<strong>Resved by: </strong> none`;
                     }
@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else {
                         portionStatus.innerHTML = `<strong>Status: </strong> not reserved`;
                     }
+                 
                 }
             };
 

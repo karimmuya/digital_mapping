@@ -30,38 +30,19 @@ class DashboardController extends Controller
         $lands = Land::all();
         $portions = Portion::all();
         $notifications = Notification::all();
+
+
+        $data = [
+            ['x' => 1, 'y' => 5],
+            ['x' => 2, 'y' => 10],
+            ['x' => 3, 'y' => 8],
+            ['x' => 4, 'y' => 15]
+        ];
     
 
-        return view('admin.index')->with('users', $users)->with('portions', $portions)->with('notifications', $notifications)->with('lands', $lands);
-    }
-
-
-    public function create()
-    {
-    }
-
-
-    public function store(Request $request)
-    {
-    }
-
-
-    public function show($land_id)
-    {
+        return view('admin.index',  compact('data'))->with('users', $users)->with('portions', $portions)->with('notifications', $notifications)->with('lands', $lands);
     }
 
 
 
-    public function edit(Portion $portion)
-    {
-    }
-
-
-    public function update(Request $request, $id)
-    {
-    }
-
-    public function destroy(Portion $portion)
-    {
-    }
 }

@@ -4,18 +4,12 @@
      @include('layouts.alerts')
      @if (count($lands) > 0)
          <section>
-             <h5 class="my-4 dark-grey-text font-weight-bold animated fadeIn">Manage Portions</h5>
+             <h5 class="my-4 dark-grey-text font-weight-bold animated fadeIn">Search Portions Results</h5>
 
              <div class="card card-cascade narrower z-depth-1">
                  <div
                      class="view view-cascade gradient-card-header blue-gradient narrower p-2 mx-4 my-3 d-flex justify-content-between align-items-center">
                      <a href="" class="white-text mx-3">Choose location to edit it's portions</a>
-                       <form class="form-inline" action="{{ route('landsearch') }}" method="GET">
-                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search"
-                            aria-label="Search">
-                        <button class="btn btn-sm bg-primary" style="border: none;" type="submit"><span><i
-                                    class="fa fa-search"></i></span></button>
-                    </form>
                  </div>
 
                  <div class="px-4 hoverable">

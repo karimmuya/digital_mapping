@@ -55,7 +55,7 @@ class BuyAdminController extends Controller
         $portion = Portion::find($id);
         $payment = Payment::where('portion_id', $portion->id)->first();
 
-        $notifications = Notification::where('user_id', $portion->user_id)->get();
+        $notifications = Notification::where('user_id', $portion->user_id)->where('portion_id', $portion->id)->get();
         foreach ($notifications as $notification) {
             $notification->delete();
         }

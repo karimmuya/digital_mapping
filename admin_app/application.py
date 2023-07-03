@@ -8,11 +8,17 @@ import os
 
 app = Flask(__name__)
 
+
+UPLOAD_FOLDER = '../main_app/public/images/lands/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        file = request.files['file']
         name = request.form['name']
+        file = request.files['file']
+        images = request.files.getlist('images[]')
         region = request.form['region']
         district = request.form['district']
         descr = request.form['descr']
@@ -32,6 +38,16 @@ def upload_file():
         img = Image.open(file.filename)
         img = img.convert("RGB")
         inverted_img = ImageOps.invert(img)
+
+
+
+        filenames = []
+        for image in images:
+            filename = image.filename
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filenames.append(filename)
+
+        
         
     
         inverted_img.save("inverted_image.bmp")
@@ -49,7 +65,7 @@ def upload_file():
         )
 
         cursor = cnx.cursor(buffered=True)
-        cursor.execute("INSERT INTO `lands` (name, pricepersqm, created_at, region, district, descr, mradi, stprice, phone, lat, `long`, pymnt_season, acc_num  ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (str(name), str(pricepersqm), str(formatted_date),  str(region), str(district), str(descr), str(mradi), str(stprice), str(phone), str(latitude), str(longitude), str(pymnt_season), str(acc_num)))
+        cursor.execute("INSERT INTO `lands` (name, pricepersqm, created_at, region, district, descr, mradi, stprice, phone, lat, `long`, pymnt_season, acc_num, gallery  ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (str(name), str(pricepersqm), str(formatted_date),  str(region), str(district), str(descr), str(mradi), str(stprice), str(phone), str(latitude), str(longitude), str(pymnt_season), str(acc_num), ",".join(filenames)))
         cnx.commit()
 
   

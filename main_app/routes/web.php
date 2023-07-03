@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\PortionsController;
 use App\Http\Controllers\Admin\BuyAdminController;
 use App\Http\Controllers\User\BuyUserController;
 use App\Http\Controllers\Admin\PaymentsController;
+use App\Http\Controllers\Admin\AdminSearchController;
+use App\Http\Controllers\User\SearchController;
 
 
 
@@ -49,6 +51,11 @@ Route::post('/releaseadm/{id}', [BuyAdminController::class, 'release']);
 Route::post('/postpone/{id}', [BuyAdminController::class, 'release']);
 Route::get('/pdf/{id}', [PDFController::class, 'generatePDF']);
 Route::post('payslip/upload/{id}', [BuyUserController::class, 'upload']);
+
+
+Route::get('manage_users_search', [AdminSearchController::class, 'usersearch'])->name('usersearch');
+Route::get('manage_lands_search', [AdminSearchController::class, 'landsearch'])->name('landsearch');
+Route::get('manage_payments_search', [AdminSearchController::class, 'paymentsearch'])->name('paymentsearch');
 
 
 

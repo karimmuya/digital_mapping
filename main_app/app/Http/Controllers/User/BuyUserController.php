@@ -29,7 +29,7 @@ class BuyUserController extends Controller
             return redirect()->back()->with('error', 'Unauthorized Page');
         }
         $payment = Payment::where('portion_id', $portion->id)->first();
-        $notifications = Notification::where('user_id', $portion->user_id)->get();
+        $notifications = Notification::where('user_id', $portion->user_id)->where('portion_id', $portion->id)->get();
         if (count($notifications) > 0) {
             foreach ($notifications as $notification) {
                 $notification->delete();

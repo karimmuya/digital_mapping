@@ -17,7 +17,7 @@
 
 <body class="homepage-v2 hidden-sn white-skin animated">
     <header>
-        <div id="slide-out" class="side-nav sn-bg-4 fixed">
+        <div id="slide-out" class="side-nav sn-bg-4">
             <ul class="custom-scrollbar">
                 <li class="logo-sn waves-effect py-3">
                     <div class="text-center"> <a href="#" class="pl-0"><img style="width: 70px;"
@@ -29,9 +29,9 @@
                                     class="w-fa fas fa-home"></i>Home</a>
                         </li>
                         @if (Auth::user())
-                            <li> <a href="{{ url('/profile#panel4') }}" class="collapsible-header waves-effect"><i
+                            <li> <a href="{{ url('/profile#panel2') }}" class="collapsible-header waves-effect"><i
                                         class="w-fa fas fa-map"></i>My
-                                    Proprties</a> </li>
+                                    Properties</a> </li>
 
 
                             @if (Auth::user()->is_admin == 1)

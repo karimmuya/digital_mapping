@@ -135,12 +135,12 @@
                                     class="view view-cascade gradient-card-header blue-gradient narrower p-2 mx-4 my-3 d-flex justify-content-between align-items-center">
                                     <a href="" class="white-text mx-3">Properties</a>
 
-                                    {{-- <form class="form-outline md-form  row ml-auto " style="width: 50%">
-                                    <input class="form-control  col-md-9" type="text" placeholder="Search"
-                                        style="">
-                                    <button class="btn  ml-3" tyle="background-color:transparent"><i
-                                            class="fas fa-search"></i> </button>
-                                </form> --}}
+                                    {{-- <form class="form-inline" action="{{ route('propertiesearch') }}" method="GET">
+                                        <input class="form-control mr-sm-2" type="search" name="search"
+                                            placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-sm bg-primary" style="border: none;" type="submit"><span><i
+                                                    class="fa fa-search"></i></span></button>
+                                    </form> --}}
                                 </div>
 
 

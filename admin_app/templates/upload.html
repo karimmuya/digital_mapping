@@ -11,6 +11,15 @@
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <title>Admin | Land Upload</title>
+   <style>
+      .thumbnail {
+         width: 150px;
+         height: 150px;
+         background-size: cover;
+         background-position: center;
+         margin: 5px;
+      }
+   </style>
 </head>
 
 <body>
@@ -87,8 +96,7 @@
                               <div class="col m-auto">
                                  <div class="md-form form-sm">
                                     <label for="acc_num">Account number</label>
-                                    <input type="text" id="acc_num" name="acc_num"
-                                       class="form-control form-control">
+                                    <input type="text" id="acc_num" name="acc_num" class="form-control form-control">
                                  </div>
                               </div>
                            </div>
@@ -196,6 +204,15 @@
                               </div>
                            </div>
 
+                           <div class="container">
+                              <h5 class="mt-5 mx-auto">Choose Photos</h5>
+                              <div class="form-outline">
+                                 <input type="file" name="images[]" id="imageUpload" style="font-size:12px" class="" multiple>
+                              </div>
+                              <div class="row mt-3 preview-container"></div>
+                           </div>
+
+
                            <input type="submit" class="btn btn-sm btn-primary" value="Upload">
                         </form>
                      </div>
@@ -215,6 +232,31 @@
          new WOW().init();
          $(document).ready(function () {
             $('.mdb-select').materialSelect();
+         });
+      </script>
+
+
+
+      <script>
+         $(document).ready(function () {
+            $('#imageUpload').on('change', function () {
+               var files = $(this)[0].files;
+
+
+               $('.preview-container').empty();
+
+
+               for (var i = 0; i < files.length; i++) {
+                  var reader = new FileReader();
+
+                  reader.onload = function (e) {
+                     var thumbnail = $('<div class="thumbnail"></div>');
+                     thumbnail.css('background-image', 'url(' + e.target.result + ')');
+                     $('.preview-container').append(thumbnail);
+                  }
+                  reader.readAsDataURL(files[i]);
+               }
+            });
          });
       </script>
 

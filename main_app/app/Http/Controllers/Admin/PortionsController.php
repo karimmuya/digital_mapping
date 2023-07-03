@@ -95,8 +95,7 @@ class PortionsController extends Controller
             $portion->due_date = $portion->due_date;
         }
         
-
-        $portion->save();
+       
        
       
         return redirect()->back()->with('success', 'Portion Edited');

@@ -44,56 +44,68 @@ class PortionController extends Controller
 
     public function update(Request $request, Portion $portion, Notification $notification)
     {
-        $portion->user_id = Auth::user()->id;
-        $due = Carbon::now();
-        $due->addDays(3);
-        $portion->due_date = $due;
+
+
+        if ($portion->status == 'free' || $portion->status == 'released') {
 
 
 
-        if ($request->fill) {
-            $portion->fill = $request->fill;
-        } else {
-            $portion->fill = $portion->fill;
+            $portion->user_id = Auth::user()->id;
+            $due = Carbon::now();
+            $due->addDays(3);
+            $portion->due_date = $due;
+
+
+
+            if ($request->fill) {
+                $portion->fill = $request->fill;
+            } else {
+                $portion->fill = $portion->fill;
+            }
+
+            if ($request->status) {
+                $portion->status = $request->status;
+            } else {
+                $portion->status = $portion->status;
+            }
+
+            if ($request->vector) {
+                $portion->vector = $request->vector;
+            } else {
+                $portion->vector = $portion->vector;
+            }
+
+            $portion->bought_by = Auth::user()->name;
+            $land = Land::where('name', $portion->land_id)->first();
+
+            $payment = new Payment;
+
+            $leadingDigit = rand(1, 9);
+            $controllNumber = "9912" . $leadingDigit . str_pad(rand(0, 999999), 7, '0', STR_PAD_LEFT);
+
+            $payment->control_num = $controllNumber;
+            $payment->user_id = Auth::user()->id;
+            $payment->portion_id = $portion->id;
+            $payment->status = "not";
+
+            $notification->user_id = Auth::user()->id;
+            $notification->portion_id = $portion->id;
+            $notification->title = "Payment Procedures " . $portion->id;
+            $notification->desc = "You have just reserved a portion number " . $portion->id . ", You can now go ahead and pay using accont number " . $land->acc_num .  " . You have untill " . \Carbon\Carbon::parse($portion->due_date)->diffForHumans() . " to complete payments ";
+
+
+            if (Auth::user()->id !== $portion->user_id) {
+                return redirect()->back()->with('error', 'Unauthorized Page');
+            }
+
+            $portion->save();
+            $notification->save();
+            $payment->save();
+            return redirect()->back()->with('success', 'Portion reserved');
+        } elseif($portion->status == 'taken') {
+            return redirect()->back()->with('error', 'Portion already taken');
+        } elseif($portion->status == 'reserved'){
+            return redirect()->back()->with('error', 'Portion already reserved');
         }
-
-        if ($request->status) {
-            $portion->status = $request->status;
-        } else {
-            $portion->status = $portion->status;
-        }
-
-        if ($request->vector) {
-            $portion->vector = $request->vector;
-        } else {
-            $portion->vector = $portion->vector;
-        }
-
-        $portion->bought_by = Auth::user()->name;
-        $land = Land::where('name', $portion->land_id)->first();
-
-        $payment = new Payment;
-
-        $leadingDigit = rand(1, 9);
-        $controllNumber = "9912" . $leadingDigit . str_pad(rand(0, 999999), 7, '0', STR_PAD_LEFT);
-
-        $payment->control_num = $controllNumber;
-        $payment->user_id = Auth::user()->id;
-        $payment->portion_id = $portion->id;
-        $payment->status = "not";
-
-        $notification->user_id = Auth::user()->id;
-        $notification->title = "Payment Procedures";
-        $notification->desc = "You have just reserved a portion number " . $portion->id . ", You can now go ahead and pay using accont number " . $land->acc_num .  " . You have untill " . \Carbon\Carbon::parse($portion->due_date)->diffForHumans() . " to complete payments ";
-
-
-        if (Auth::user()->id !== $portion->user_id) {
-            return redirect()->back()->with('error', 'Unauthorized Page');
-        }
-
-        $portion->save();
-        $notification->save();
-        $payment->save();
-        return redirect()->back()->with('success', 'Portion reserved');
     }
 }

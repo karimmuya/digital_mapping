@@ -70,6 +70,12 @@
                  <div
                      class="view view-cascade gradient-card-header blue-gradient narrower p-2 mx-4 my-3 d-flex justify-content-between align-items-center">
                      <a href="" class="white-text mx-3">Choose a user to edit</a>
+                     <form class="form-inline" action="{{ route('usersearch') }}" method="GET">
+                         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search"
+                             aria-label="Search">
+                         <button class="btn btn-sm bg-primary" style="border: none;" type="submit"><span><i
+                                     class="fa fa-search"></i></span></button>
+                     </form>
                  </div>
 
 
@@ -101,14 +107,13 @@
                                          <td>
 
                                              <a href="/manage_users/{{ $user->id }}"
-                                                 class="btn btn-sm btn-primary">edit</a>
-                                         </td>
-                                         <td>
-                                         <td> <a href="#deleteUserModal{{ $user->id }}" class="btn btn-sm btn-danger"
-                                                 data-toggle="modal">
+                                                 class="btn btn-sm btn-primary mx-3">edit</a>
+                                             <a href="#deleteUserModal{{ $user->id }}"
+                                                 class="btn btn-sm btn-danger mx-3" data-toggle="modal">
                                                  DELETE
                                                  </i></a>
                                          </td>
+
 
                                      </tr>
                                      <div id="deleteUserModal{{ $user->id }}" class="modal fade">
