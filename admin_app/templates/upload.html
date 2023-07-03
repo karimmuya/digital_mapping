@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../static/css/mdb.min.css">
+   <link rel="stylesheet" href="../static/css/animations-extended.min.css">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <title>Admin | Land Upload</title>
+</head>
+
+<body>
+
+   <body>
+
+      <main class="mx-auto">
+
+         <section class="col-md-8 pt-4 pb-5 mt-5 mx-auto">
+            <div class="col-md-10">
+               <h5 class="my-4 dark-grey-text font-weight-bold">Admin | Land Upload</h5>
+            </div>
+            <div class="card mt-3 hoverable">
+               <div class="m-3">
+                  <div class="col-lg-12 m-auto">
+                     <div class="m-3">
+                        <form method="POST" action="/" enctype="multipart/form-data">
+                           <div class="row">
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="name">Location name</label>
+                                    <input type="text" id="name" name="name" class="form-control form-control">
+                                 </div>
+                              </div>
+
+                              <div class="col m-auto">
+                                 <label for="region">Region:</label>
+                                 <select class="mdb-select md-form form-sm" id="region" name="region">
+                                    <option selected>Choose region</option>
+                                    <option value="Dar-es-salaam">Dar-es-salaam</option>
+                                    <option value="Dodoma">Dodoma</option>
+                                    <option value="Tanga">Tanga</option>
+                                 </select>
+                              </div>
+                           </div>
+
+                           <div class="row">
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="district">District:</label>
+
+                                    <select class="mdb-select md-form form-sm" id="district" name="district">
+                                       <option selected>Choose district</option>
+                                       <option value="Temeke">Temeke</option>
+                                       <option value="Ilala">Ilala</option>
+                                       <option value="Kinondoni">Kinondoni</option>
+                                    </select>
+                                 </div>
+                              </div>
+
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="mradi">Mradi</label>
+                                    <input type="text" id="mradi" name="mradi" class="form-control form-control">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="row">
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="stprice">Starting price (TZS)</label>
+                                    <input type="text" id="stprice" name="stprice" class="form-control form-control">
+                                 </div>
+                              </div>
+
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="pymnt_season">Payment seasons</label>
+                                    <input type="text" id="pymnt_season" name="pymnt_season"
+                                       class="form-control form-control">
+                                 </div>
+                              </div>
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="acc_num">Account number</label>
+                                    <input type="text" id="acc_num" name="acc_num"
+                                       class="form-control form-control">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="row">
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="phone">Owner's phone</label>
+                                    <input type="text" id="phone" name="phone" class="form-control form-control">
+                                 </div>
+                              </div>
+
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="pricepersqm">Price per square meter</label>
+                                    <input type="text" id="pricepersqm" name="pricepersqm"
+                                       class="form-control form-control">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="md-form col-md-5 mx-auto pb-4">
+                              <div class="file-field">
+                                 <div class="btn btn-primary btn-sm float-left">
+                                    <span>Choose file</span>
+                                    <input type="file" id="file" name="file">
+                                 </div>
+                                 <div class="file-path-wrapper">
+                                    <input class="file-path validate form-label" type="text" id="file"
+                                       placeholder="upload your image">
+                                 </div>
+                              </div>
+                           </div>
+
+
+                           <div class="m-auto pb-3">
+                              <div id="map" class="mx-auto" style="height:500px; width: 750px;" class="my-3"></div>
+                              <script>
+                                 let map;
+
+                                 function initMap() {
+                                    map = new google.maps.Map(document.getElementById("map"), {
+                                       center: {
+                                          lat: -7.0673982,
+                                          lng: 39.5305745
+                                       },
+                                       zoom: 30,
+                                       scrollwheel: true,
+                                       mapTypeId: 'satellite'
+                                    });
+
+                                    const uluru = {
+                                       lat: -7.0673982,
+                                       lng: 39.5305745
+                                    };
+                                    let marker = new google.maps.Marker({
+                                       position: uluru,
+                                       map: map,
+                                       draggable: true
+                                    });
+
+                                    google.maps.event.addListener(marker, 'position_changed',
+                                       function () {
+                                          let lat = marker.position.lat()
+                                          let lng = marker.position.lng()
+                                          $('.lat').val(lat)
+                                          $('.lng').val(lng)
+                                       })
+
+                                    google.maps.event.addListener(map, 'click',
+                                       function (event) {
+                                          pos = event.latLng
+                                          marker.setPosition(pos)
+                                       })
+                                 }
+                              </script>
+                              <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+                                 type="text/javascript"></script>
+                           </div>
+
+                           <div class="row">
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="latitude">Latitude</label>
+                                    <input type="text" id="latitude" name="latitude" value="0.0000000"
+                                       class="form-control form-control lat">
+                                 </div>
+                              </div>
+
+                              <div class="col m-auto">
+                                 <div class="md-form form-sm">
+                                    <label for="longitude">Longitude</label>
+                                    <input type="text" id="longitude" name="longitude" value="0.0000000"
+                                       class="form-control form-control lng">
+                                 </div>
+                              </div>
+                           </div>
+
+
+                           <div class="m-auto">
+                              <div class="md-form form-sm">
+                                 <label for="descr">Description</label>
+                                 <textarea type="text" id="descr" name="descr"
+                                    class="md-textarea form-control"> </textarea>
+                              </div>
+                           </div>
+
+                           <input type="submit" class="btn btn-sm btn-primary" value="Upload">
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            </div>
+         </section>
+      </main>
+
+      <script src="../static/js/jquery-3.4.1.min.js"></script>
+      <script src="../static/js/bootstrap.min.js"></script>
+      <script src="../static/js/popper.min.js"></script>
+      <script src="../static/js/mdb.min.js"></script>
+
+      <script>
+         new WOW().init();
+         $(document).ready(function () {
+            $('.mdb-select').materialSelect();
+         });
+      </script>
+
+   </body>
+
+</html>

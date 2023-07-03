@@ -1,0 +1,16 @@
+/*   
+  .path-class:hover {
+    fill: pink;
+    stroke-dashoffset: 0;
+    stroke-dasharray: 125;
+  }
+   */
+
+  
+  [d] {
+    /* fill: #333; */
+    transition: .4s;
+    cursor: pointer
+  }
+  
+  [d]:hover { fill: #f90 }
