@@ -4,7 +4,10 @@
      @include('layouts.alerts')
      @if (count($lands) > 0)
          <section>
-             <h5 class="my-4 dark-grey-text font-weight-bold animated fadeIn">Manage Lands</h5>
+             <div class="row mx-auto">
+                 <h5 class="mt-3 dark-grey-text font-weight-bold col-md-9 animated fadeIn">Manage Lands</h5>
+                 <a href="http://127.0.0.1:5000"  target="_blank" class="btn btn-sm btn-primary ml-auto col-md-1">ADD</a>
+             </div>
 
              <div class="card card-cascade narrower z-depth-1 ">
                  <div

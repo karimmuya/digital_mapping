@@ -79,41 +79,37 @@
 
             <canvas id="myChart" class="mx-auto mt-3 mb-3 col-md-9 p-3"></canvas>
 
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
-                var data = {!! json_encode($data) !!};
+                var data = @json($portions); 
+                var labels = [];
+                var values = [];
 
-                var xData = data.map(function(item) {
-                    return item.x;
+                data.forEach(function(item) {
+                    labels.push(item.size);
+                    values.push(item.price);
                 });
 
-                var yData = data.map(function(item) {
-                    return item.y;
-                });
-
+              
                 var ctx = document.getElementById('myChart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: xData,
+                        labels: labels,
                         datasets: [{
-                            label: 'Payments',
-                            data: yData,
-                            borderColor: 'rgb(75, 192, 192)',
-                            backgroundColor: 'rgb(75, 192, 192)',
-                            fill: null
+                            label: 'Price',
+                            data: values,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'blue',
+                            borderWidth: 2
                         }]
                     },
                     options: {
-                        responsive: true,
-                        scales: {
-                            x: {
-                                type: 'linear',
-                                position: 'bottom'
-                            }
-                        }
+            
                     }
                 });
             </script>
+
 
 
         </div>

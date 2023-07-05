@@ -102,10 +102,12 @@ class PortionController extends Controller
             $notification->save();
             $payment->save();
             return redirect()->back()->with('success', 'Portion reserved');
-        } elseif($portion->status == 'taken') {
+        } elseif ($portion->status == 'taken') {
             return redirect()->back()->with('error', 'Portion already taken');
-        } elseif($portion->status == 'reserved'){
+        } elseif ($portion->status == 'reserved') {
             return redirect()->back()->with('error', 'Portion already reserved');
+        } elseif ($portion->status == 'disabled') {
+            return redirect()->back()->with('error', 'Cant reserve this portion');
         }
     }
 }

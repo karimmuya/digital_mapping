@@ -60,6 +60,8 @@ class AdminSearchController extends Controller
             ->where('control_num', 'LIKE', "%{$search}%")
             ->orWhere('amount', 'LIKE', "%{$search}%")
             ->orWhere('user_id', 'LIKE', "%{$search}%")
+            ->orWhere('payslip', 'LIKE', "%{$search}%")
+            ->orWhere('status', 'LIKE', "%{$search}%")
             ->get();
 
 

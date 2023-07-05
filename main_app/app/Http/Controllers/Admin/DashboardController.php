@@ -7,6 +7,7 @@ use App\Models\Land;
 use App\Models\Portion;
 use App\Models\User;
 use App\Models\Notification;
+use App\Models\Payment;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -30,17 +31,13 @@ class DashboardController extends Controller
         $lands = Land::all();
         $portions = Portion::all();
         $notifications = Notification::all();
+        $payments = Payment::all();
 
 
-        $data = [
-            ['x' => 1, 'y' => 5],
-            ['x' => 2, 'y' => 10],
-            ['x' => 3, 'y' => 8],
-            ['x' => 4, 'y' => 15]
-        ];
+
     
 
-        return view('admin.index',  compact('data'))->with('users', $users)->with('portions', $portions)->with('notifications', $notifications)->with('lands', $lands);
+        return view('admin.index',  compact('portions'))->with('users', $users)->with('portions', $portions)->with('notifications', $notifications)->with('lands', $lands);
     }
 
 

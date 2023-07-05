@@ -8,7 +8,6 @@ use App\Models\Portion;
 use App\Models\User;
 use App\Models\Notification;
 
-
 use Illuminate\Http\Request;
 
 
@@ -49,10 +48,6 @@ class PortionsController extends Controller
 
     public function update(Request $request, $id)
     {
-
-
-
-
         $portion = Portion::find($id);
         $portion->user_id = $portion->user_id;
 
@@ -94,10 +89,8 @@ class PortionsController extends Controller
         } else {
             $portion->due_date = $portion->due_date;
         }
-        
-       
-       
-      
+
+        $portion->save();
         return redirect()->back()->with('success', 'Portion Edited');
 
     }
