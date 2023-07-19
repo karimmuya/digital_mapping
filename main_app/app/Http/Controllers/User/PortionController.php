@@ -26,7 +26,7 @@ class PortionController extends Controller
 
     public function index()
     {
-        $lands = Land::orderBy('id', 'asc')->paginate(6);
+        $lands = Land::orderBy('id', 'asc')->paginate(8);
         return view('user.index')->with('lands', $lands);
     }
 
