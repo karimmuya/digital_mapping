@@ -4,7 +4,7 @@
 
 ### How to run
 
-#### 1. Go to the application folder  using cd command on your cmd or terminal.
+#### 1. Go to the main application folder  using cd command on your cmd or terminal.
 
 ```
 cd main_app
@@ -53,31 +53,37 @@ php artisan serve
 ### How to run
 
 
-#### 1. Install Virtual environment
+#### 1. Go to the application folder  using cd command on your cmd or terminal
+
+```
+cd admin_app
+```
+
+#### 2. Install Virtual environment
 
 ```
 pip3 install virtualenv
 ```
 
-#### 2. Create Virtual environment  
+#### 3. Create Virtual environment  
 
 ```
 virtualenv venv
 ```
 
-#### 3. Activate Virtual environment (Linux / MacOS) 
+#### 4. Activate Virtual environment (Linux / MacOS) 
 
 ```
 . .venv/bin/activate
 ```
 
-#### 4. Install Dependencies 
+#### 5. Install Dependencies 
 
 ```
 pip3 install -r requirements.txt
 ```
 
-#### 4. Run the project 
+#### 6. Run the project 
 
 ```
 python3 -m flask --app application run --debug 
